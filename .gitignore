@@ -1,0 +1,7 @@
+/.idea
+*.log
+/vendor
+*.*~
+config/config.php
+config/plugins.php
+composer.phar

@@ -1,0 +1,10 @@
+<?php
+
+return array(
+    new \Deploy\Core\DependencyInjection\DeployCoreExtension(),
+    new \Deploy\Git\DependencyInjection\DeployGitExtension(),
+    new \Deploy\Shared\DependencyInjection\DeploySharedExtension(),
+    new \Deploy\Composer\DependencyInjection\DeployComposerExtension(),
+    new \Deploy\Phinx\DependencyInjection\DeployPhinxExtension(),
+    new \Deploy\Permissions\DependencyInjection\DeployPermissionsExtension()
+);

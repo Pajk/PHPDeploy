@@ -1,0 +1,28 @@
+{
+    "name": "pajk/php-deploy",
+    "description": "Deploy your PHP application with ease!",
+    "require": {
+        "symfony/console": "*",
+        "symfony/dependency-injection": "*",
+        "symfony/process": "*",
+        "symfony/event-dispatcher": "*",
+        "symfony/config": "*",
+        "symfony/filesystem": "*",
+        "monolog/monolog": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*",
+        "mikey179/vfsStream": "v1.2.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Pavel Pokorny",
+            "email": "pajkycz@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-0": {"Deploy\\": "src/"}
+    }
+}

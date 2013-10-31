@@ -1,0 +1,34 @@
+<?php
+
+return array(
+    'deploy_core' => array(
+        'history' => 5,
+        'deploy_path' => '/home/deployuser/myapp',
+        'project_name' => 'MyApp',
+        'logger_file' => "deploy.log"
+    ),
+    'deploy_git' => array(
+        'repository' => 'git@github.com:Me/MyApp.git',
+        'branch' => 'dev'
+    ),
+    'deploy_shared' => array(
+        'folders' => array(
+            'vendor',
+            'bin',
+            'app/logs'
+        ),
+        'files' => array(
+            'phinx.yml',
+            'app/config/parameters.yml'
+        )
+    ),
+    'deploy_composer' => array(
+        'binary_path' => '/home/deployuser/composer.phar',
+        'timeout' => 2000
+    ),
+    'deploy_permissions' => array(
+        'rwx' => array(
+            'app/cache'
+        )
+    )
+);

@@ -1,0 +1,15 @@
+#!/usr/bin/env php
+<?php
+
+$loader = require 'vendor/autoload.php';
+
+use Deploy\Core\Command\InitCommand;
+use Deploy\Core\Command\DeployCommand;
+use Deploy\Core\Command\RollbackCommand;
+use Symfony\Component\Console\Application;
+
+$application = new Application();
+$application->add(new InitCommand);
+$application->add(new DeployCommand);
+$application->add(new RollbackCommand);
+$application->run();

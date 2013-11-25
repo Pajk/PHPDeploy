@@ -15,7 +15,7 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->scalarNode('binary_path')->defaultValue('composer.phar')->end()
-                ->arrayNode('options')->prototype('scalar')->end()->defaultValue(array('--verbose', '--prefer-dist'))->end()
+                ->arrayNode('options')->prototype('scalar')->end()->defaultValue(array('--verbose', '--prefer-dist', '-o'))->end()
                 ->booleanNode('update_vendors')->defaultValue(false)->end()
                 ->arrayNode('working_dirs')->prototype('scalar')->end()->defaultValue(array('.'))->end()
                 ->integerNode('timeout')->defaultValue(1000)->end()

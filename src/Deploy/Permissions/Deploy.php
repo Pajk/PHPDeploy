@@ -26,10 +26,12 @@ class Deploy extends DeployBase
 
         foreach ($this->rwx as $resource) {
 
-            $this->utils->shouldExists(
-                $target_dir . $resource,
-                "Resource {$resource} does not exist."
-            );
+            if (!$this->utils->exists($target_dir . $resource)) {
+                $this->utils->mkdir(
+                    $target_dir . $resource,
+                    "Unable to create {$resource}"
+                );
+            }
 
             $this->utils->chmod(
                 $target_dir . $resource,

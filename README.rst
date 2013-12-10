@@ -29,6 +29,7 @@ SSH to your server, clone this repository, install 3rd party libraries with Comp
     $ ./init.sh
     $ vim config/plugins.php
     $ vim config/config.php
+    $ ./run init -vv
     $ ./run deploy -vv
 
 ``plugins.php`` file contains a list of enabled plugins. Beware that it's an ordered list, plugins are registered in stated sequence and also defined event listeners are registered in this order.

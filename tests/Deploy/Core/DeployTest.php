@@ -168,10 +168,34 @@ drwxr-xr-x  20 pavel  staff  680 Nov 13 18:00 releases"));
 
         vfsStream::create($structure);
 
+        $process2 = $this
+            ->getMockBuilder('Symfony\Component\Process\Process')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $process2
+            ->expects($this->once())
+            ->method('getOutput')
+            ->will($this->returnValue("20140214112505  20140214104716  20140214074203  20140214065145  20140213044608
+20140214110742  20140214080153  20140214071741  20140213051719"));
+
         $this->utils
             ->expects($this->once())
+            ->method('exec')
+            ->will($this->returnValue($process2));
+
+        $this->utils
+            ->expects($this->exactly(5))
             ->method('remove')
-            ->with($this->equalTo($this->getPath('/current')));
+            ->with($this->logicalOr(
+                $this->equalTo($this->getPath('/current')),
+                $this->equalTo($this->getPath("/releases/20140213044608")),
+                $this->equalTo($this->getPath("/releases/20140214110742")),
+                $this->equalTo($this->getPath("/releases/20140214080153")),
+                $this->equalTo($this->getPath("/releases/20140214071741")),
+                $this->equalTo($this->getPath("/releases/20140213051719"))
+            ))
+            ->will($this->returnValue(true));
 
         $this->utils
             ->expects($this->once())
@@ -230,8 +254,6 @@ drwxr-xr-x  20 pavel  staff  680 Nov 13 18:00 releases"));
         $this->utils
             ->expects($this->exactly(2))
             ->method('exec')
-//            ->with(array('ls','-t', $this->getPath('/releases/')))
-//            ->with(array('ls','-l', $this->getPath('')))
             ->will($this->onConsecutiveCalls(
                 $this->returnValue($process1),
                 $this->returnValue($process2)

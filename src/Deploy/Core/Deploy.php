@@ -105,6 +105,8 @@ class Deploy extends DeployBase
             $this->deploy_path . '/logs/' . $event->getTimestamp() . '.deploy.log',
             "Unable to copy log file to logs directory"
         );
+
+        $this->removeOldReleases();
     }
 
     /**
@@ -263,5 +265,20 @@ class Deploy extends DeployBase
     private function getReleasePath($release = '')
     {
         return $this->deploy_path . '/releases/' . $release;
+    }
+
+    private function removeOldReleases()
+    {
+        $list = $this->getAllDeployedReleases();
+
+        if ($this->history && $this->history > 2) {
+            $list = array_slice($list, $this->history);
+            foreach ($list as $dir) {
+                $this->utils->remove(
+                    $this->getReleasePath($dir),
+                    "Unable to remove old release: $dir"
+                );
+            }
+        }
     }
 }

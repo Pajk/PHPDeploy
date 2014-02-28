@@ -5,3 +5,7 @@
 config/config.php
 config/plugins.php
 composer.phar
+/build/coverage
+/build/logs
+/build/api
+/build/phpdox

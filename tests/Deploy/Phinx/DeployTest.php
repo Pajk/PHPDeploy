@@ -207,6 +207,7 @@ class DeployTest extends \PHPUnit_Framework_TestCase
         } catch (\Exception $e) {
             $this->fail('An exception has been raised. ' . $e->getMessage());
         }
+        $this->assertTrue(true);
     }
 
     public function testOnRollbackEvent()
@@ -281,6 +282,7 @@ class DeployTest extends \PHPUnit_Framework_TestCase
         } catch (\Exception $e) {
             $this->fail('An exception has been raised. ' . $e->getMessage());
         }
+        $this->assertTrue(true);
     }
 }
 

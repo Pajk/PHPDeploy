@@ -108,6 +108,17 @@ class Core
             $this->event_dispatcher->dispatch(DeployEvents::PRE_DEPLOY, $event);
             $this->event_dispatcher->dispatch(DeployEvents::DEPLOY, $event);
             $this->event_dispatcher->dispatch(DeployEvents::POST_DEPLOY, $event);
+
+            // run post deploy commands
+            if ($this->container->hasParameter('deploy_core.post_deploy_commands')) {
+                $commands = $this->container->getParameter('deploy_core.post_deploy_commands');
+                foreach ($commands as $command) {
+                    $this->utils->exec(
+                        $command,
+                        "Unable to execute command '$command'."
+                    );
+                }
+            }
             $this->logger->info("==== Deploy finished");
         } catch (\RuntimeException $e) {
             if ($e->getCode() == 500) {

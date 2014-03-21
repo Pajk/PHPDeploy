@@ -22,6 +22,7 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('logger_level')->defaultValue(Logger::DEBUG)->end()
                 ->scalarNode('logger_echo_level')->defaultValue(Logger::INFO)->end()
                 ->scalarNode('logger_name')->defaultValue('deploy')->end()
+                ->arrayNode('post_deploy_commands')->prototype('scalar')->end()->defaultValue(array())->end()
             ->end();
 
         return $treeBuilder;

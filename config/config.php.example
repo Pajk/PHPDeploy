@@ -5,7 +5,11 @@ return array(
         'history' => 5,
         'deploy_path' => '/home/deployuser/myapp',
         'project_name' => 'MyApp',
-        'logger_file' => "deploy.log"
+        'logger_file' => "deploy.log",
+        'post_deploy_commands' => array(
+            'service httpd reload',
+            'service supervisord restart'
+        )
     ),
     'deploy_git' => array(
         'repository' => 'git@github.com:Me/MyApp.git',

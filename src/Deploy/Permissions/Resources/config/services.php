@@ -9,5 +9,6 @@ $container->setParameter('deploy_permissions.class', 'Deploy\Permissions\Deploy'
 $container
     ->setDefinition('deploy_permissions', new DefinitionDecorator('deploy_plugin'))
     ->setClass('%deploy_permissions.class%')
-    ->addArgument('%deploy_permissions.rwx%')
+    ->addArgument('%deploy_permissions.files%')
+    ->addArgument('%deploy_permissions.folders%')
     ->addTag('deploy.event_listener', array('event' => DeployEvents::DEPLOY));

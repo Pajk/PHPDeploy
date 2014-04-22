@@ -31,8 +31,10 @@ return array(
         'timeout' => 2000
     ),
     'deploy_permissions' => array(
-        'rwx' => array(
-            'app/cache'
+        'folders' => array(
+            '0777' => array(
+                'app/cache'
+            )
         )
     )
 );

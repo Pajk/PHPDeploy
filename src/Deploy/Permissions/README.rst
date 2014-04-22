@@ -6,10 +6,12 @@
  Configuration
 --------------
 
-* rwx
+* files -  [file_permission => [file1, file2, ...]]
+* folders - [folder_permission => [folder1, folder2, ...]]
 
 ------------
  Description
 ------------
 
-First it sets permission to all files in deployed release to 755 and then it goes through all resources (files or folders) specified in ``rwx`` configuration and sets permissions to 0777.
+It goes through all files and folders specified in plugin's configuration and sets appropriate permissions.
+Specified permission is passed directly to ``chmod`` command.

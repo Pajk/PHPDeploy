@@ -14,7 +14,8 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->arrayNode('rwx')->prototype('scalar')->end()->end()
+                ->arrayNode('files')->prototype('array')->prototype('scalar')->end()->end()->defaultValue(array())->end()
+                ->arrayNode('folders')->prototype('array')->prototype('scalar')->end()->end()->defaultValue(array())->end()
             ->end();
 
         return $treeBuilder;

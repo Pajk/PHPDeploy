@@ -9,7 +9,8 @@ use Psr\Log\LoggerInterface;
 
 class Deploy extends DeployBase
 {
-    private $rwx;
+    private $files;
+    private $folders;
 
     public function onDeployEvent(DeployEvent $event)
     {
@@ -17,32 +18,50 @@ class Deploy extends DeployBase
 
         $target_dir = $event->getTargetDir() . '/';
 
-        $this->utils->exec(
-            "chmod -R 755 .",
-            "Unable to fix permissions in deployed release",
-            null,
-            $target_dir
-        );
+        foreach ($this->folders as $permission => $folders) {
+            $octal = decoct($permission);
+            foreach ($folders as $resource) {
 
-        foreach ($this->rwx as $resource) {
+                if (!$this->utils->exists($target_dir . $resource)) {
+                    $this->utils->mkdir(
+                        $target_dir . $resource,
+                        "Unable to create folder {$resource}"
+                    );
+                }
 
-            if (!$this->utils->exists($target_dir . $resource)) {
-                $this->utils->mkdir(
+                $this->utils->chmod(
                     $target_dir . $resource,
-                    "Unable to create {$resource}"
+                    $permission,
+                    "Unable to set {$octal} permissions to {$resource}.",
+                    "Chmod {$octal} '{$resource}'."
                 );
             }
+        }
 
-            $this->utils->chmod(
-                $target_dir . $resource,
-                0777,
-                "Unable to set rwx permissions to {$resource}.",
-                "Chmod '{$resource}' to rwx."
-            );
+        foreach ($this->files as $permission => $files) {
+            $octal = decoct($permission);
+            foreach ($files as $resource) {
+
+                if (!$this->utils->exists($target_dir . $resource)) {
+                    $this->utils->createFile(
+                        $target_dir . $resource,
+                        "New empty file created by PHPDeploy",
+                        "Unable to create file {$resource}"
+                    );
+                }
+
+                $this->utils->chmod(
+                    $target_dir . $resource,
+                    $permission,
+                    "Unable to set {$octal} permissions to {$resource}.",
+                    "Chmod {$octal} '{$resource}'."
+                );
+            }
         }
     }
 
-    function __construct(array $rwx) {
-        $this->rwx = $rwx;
+    public function __construct(array $files, array $folders) {
+        $this->files = $files;
+        $this->folders = $folders;
     }
 }

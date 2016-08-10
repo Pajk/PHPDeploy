@@ -89,6 +89,14 @@ class DeployEventDispatcher implements EventDispatcherInterface
     /**
      * {@inheritdoc}
      */
+    public function getListenerPriority($eventName, $listener )
+    {
+        return $this->dispatcher->getListenerPriority($eventName, $listener);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function hasListeners($eventName = null)
     {
         return $this->dispatcher->hasListeners($eventName);
